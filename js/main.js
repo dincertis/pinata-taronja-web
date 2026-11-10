@@ -52,3 +52,64 @@ document.querySelectorAll("[data-pack]").forEach((enlace) => {
     if (campoPack) campoPack.value = enlace.dataset.pack;
   });
 });
+
+// Imagotipo del hero (solo escritorio). Al pasar el ratón:
+// 1) el círculo azul (delante) sube en diagonal, alejándose del grande, hasta ser tangente;
+// 2) ahí pasa a ir detrás y cruza por detrás del círculo grande hasta salir por el otro lado, de nuevo tangente;
+// 3) ahí vuelve a ir delante y sube por la misma diagonal hasta su sitio, con un pequeño rebote final.
+// Las capas solo cambian cuando los círculos son tangentes (no se solapan), así que el cambio no se nota.
+(function animarImagotipo() {
+  const zona = document.querySelector(".circulos");
+  const azul = document.getElementById("pt-azul");
+  const capaAzul = document.querySelector(".pt-azul");
+  if (!zona || !azul || !capaAzul || !azul.animate) return;
+
+  const PRINCIPAL = 1950; // ms del recorrido principal
+  const ASENTAMIENTO = 300; // ms del rebote final
+  const REBOTE = 12; // cuánto se pasa de su posición al final (unidades del viewBox 375×395)
+  const DURACION = PRINCIPAL + ASENTAMIENTO;
+
+  // Geometría medida sobre el logo original
+  const grande = { x: 157, y: 237.5, r: 144.8 };
+  const reposo = { x: 257.3, y: 114.4, r: 102.7 };
+  const dx = reposo.x - grande.x, dy = reposo.y - grande.y;
+  const DIST = Math.hypot(dx, dy); // distancia entre centros en reposo
+  const ux = dx / DIST, uy = dy / DIST; // diagonal que une los centros
+  const TANGENTE = grande.r + reposo.r + 0.5; // distancia entre centros cuando son tangentes
+
+  // Posición del azul = distancia de su centro al del grande, medida sobre la diagonal
+  const pos = (s) => `translate(${(ux * (s - DIST)).toFixed(2)}px, ${(uy * (s - DIST)).toFixed(2)}px)`;
+  const d1 = TANGENTE - DIST, d2 = 2 * TANGENTE, d3 = TANGENTE + DIST + REBOTE;
+  const k = PRINCIPAL / DURACION / (d1 + d2 + d3);
+  const T1 = d1 * k, T2 = (d1 + d2) * k, T3 = PRINCIPAL / DURACION;
+  const suave = "cubic-bezier(.45, 0, .55, 1)", final = "cubic-bezier(.35, 0, .25, 1)";
+  const recorrido = [
+    { transform: pos(DIST), offset: 0, easing: suave },
+    { transform: pos(TANGENTE), offset: T1, easing: suave }, // tangente arriba a la derecha: pasa detrás
+    { transform: pos(-TANGENTE), offset: T2, easing: suave }, // tangente abajo a la izquierda: vuelve delante
+    { transform: pos(DIST + REBOTE), offset: T3, easing: final },
+    { transform: pos(DIST), offset: 1 },
+  ];
+
+  const escritorio = matchMedia("(min-width: 981px) and (hover: hover) and (pointer: fine)");
+  const sinMovimiento = matchMedia("(prefers-reduced-motion: reduce)");
+  let animacion = null;
+
+  function ajustarCapa() {
+    if (!animacion) return;
+    const f = animacion.currentTime / DURACION;
+    capaAzul.classList.toggle("detras", f >= T1 && f < T2);
+    requestAnimationFrame(ajustarCapa);
+  }
+  function terminar() {
+    animacion = null;
+    capaAzul.classList.remove("detras");
+  }
+
+  zona.addEventListener("mouseenter", () => {
+    if (animacion || !escritorio.matches || sinMovimiento.matches) return;
+    animacion = azul.animate(recorrido, { duration: DURACION });
+    animacion.finished.then(terminar, terminar);
+    requestAnimationFrame(ajustarCapa);
+  });
+})();
