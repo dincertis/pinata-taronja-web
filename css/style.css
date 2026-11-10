@@ -100,6 +100,10 @@ ul { padding: 0; list-style: none; }
 .pt-grande { z-index: 1; }
 .pt-azul { z-index: 2; } /* en reposo el azul va delante, como en el logo original */
 .pt-azul.detras { z-index: 0; }
+
+/* Título del hero: efecto de ola (las letras se separan en JS solo en escritorio con ratón) */
+.ola-palabra { display: inline-block; white-space: nowrap; }
+.ola-letra { display: inline-block; transform-origin: 50% 75%; }
 .circulo { position: absolute; border-radius: 50%; }
 .circulo-grande {
   width: 76%; height: 76%; left: 0; bottom: 0; background: var(--degradado);

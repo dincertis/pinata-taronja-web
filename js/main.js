@@ -113,3 +113,61 @@ document.querySelectorAll("[data-pack]").forEach((enlace) => {
     requestAnimationFrame(ajustarCapa);
   });
 })();
+
+// Título del hero (solo escritorio con ratón): al pasar el ratón por encima, una ola recorre las letras
+// en orden; cada una crece un poco, cambia a un color de la paleta y vuelve a su tamaño y color.
+(function olaTitulo() {
+  const titulo = document.querySelector(".hero h1");
+  if (!titulo || !titulo.animate) return;
+  if (!matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const RETARDO = 38; // ms entre una letra y la siguiente
+  const DURACION = 650; // ms que dura el gesto de cada letra
+  const ESCALA = 1.22;
+  const estilos = getComputedStyle(document.documentElement);
+  const color = (nombre, respaldo) => estilos.getPropertyValue(nombre).trim() || respaldo;
+  const COLORES = [
+    color("--rosa", "#e7396d"), color("--coral", "#ee926f"), color("--amarillo", "#f6e521"),
+    color("--cielo", "#4797d2"), color("--marino", "#24509e"),
+  ];
+
+  // Separa el título en palabras y letras (el texto completo queda como etiqueta para lectores de pantalla)
+  const texto = titulo.textContent.trim();
+  titulo.setAttribute("aria-label", texto);
+  titulo.textContent = "";
+  const letras = [];
+  texto.split(" ").forEach((palabra, p, todas) => {
+    const contenedor = document.createElement("span");
+    contenedor.className = "ola-palabra";
+    contenedor.setAttribute("aria-hidden", "true");
+    for (const caracter of palabra) {
+      const letra = document.createElement("span");
+      letra.className = "ola-letra";
+      letra.textContent = caracter;
+      contenedor.appendChild(letra);
+      letras.push(letra);
+    }
+    titulo.appendChild(contenedor);
+    if (p < todas.length - 1) titulo.appendChild(document.createTextNode(" "));
+  });
+
+  let enCurso = false;
+  titulo.addEventListener("mouseover", (evento) => {
+    if (enCurso || evento.target === titulo) return;
+    enCurso = true;
+    let ultima = null;
+    letras.forEach((letra, i) => {
+      ultima = letra.animate(
+        [
+          { transform: "scale(1)", offset: 0 },
+          { transform: `scale(${ESCALA})`, color: COLORES[i % COLORES.length], offset: 0.45 },
+          { transform: "scale(1)", offset: 1 },
+        ],
+        { duration: DURACION, delay: i * RETARDO, easing: "ease-in-out" }
+      );
+    });
+    const terminar = () => { enCurso = false; };
+    ultima.finished.then(terminar, terminar);
+  });
+})();
