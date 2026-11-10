@@ -178,6 +178,7 @@
             <p>Cuéntanos qué necesitas y te respondemos con una propuesta.</p>
           </div>
           <form class="formulario" id="form-presupuesto" novalidate>
+            <input type="hidden" name="tipo" value="presupuesto"><div class="trampa" aria-hidden="true"><label>No rellenar<input type="text" name="web" tabindex="-1" autocomplete="off"></label></div>
             <div class="campos">
               <div class="campo"><label for="nombre">Nombre</label><input id="nombre" name="nombre" type="text" autocomplete="name" required></div>
               <div class="campo"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
@@ -203,6 +204,7 @@
           <p class="sub">Ideas y novedades de marketing y diseño para tu negocio. Sin spam.</p>
         </div>
         <form class="formulario" id="form-newsletter" novalidate>
+          <input type="hidden" name="tipo" value="newsletter"><div class="trampa" aria-hidden="true"><label>No rellenar<input type="text" name="web" tabindex="-1" autocomplete="off"></label></div>
           <div class="fila-email">
             <input type="email" name="email" placeholder="Tu email" aria-label="Tu email" autocomplete="email" required>
             <button class="boton boton-rosa" type="submit">Suscribirme</button>

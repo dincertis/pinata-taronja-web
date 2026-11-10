@@ -1,8 +1,9 @@
 // PIÑATA TARONJA · comportamiento básico de la web.
-// Los formularios todavía no envían datos: cuando decidamos el destino
-// (por ejemplo un webhook de n8n) basta con rellenar esta URL.
-const WEBHOOK_PRESUPUESTO = "";
-const WEBHOOK_NEWSLETTER = "";
+// Ambos formularios envían a un único webhook de n8n (campo "tipo" los distingue):
+// guarda la fila en Google Sheets y avisa por correo a hola@pinatataronja.com.
+const WEBHOOK = "https://n8n.davidincertis.com/webhook/pinata-taronja-contacto";
+const WEBHOOK_PRESUPUESTO = WEBHOOK;
+const WEBHOOK_NEWSLETTER = WEBHOOK;
 
 async function enviar(url, datos) {
   if (!url) return true; // modo diseño: sin destino configurado
@@ -16,6 +17,7 @@ async function enviar(url, datos) {
 
 function conectarFormulario(formulario, url) {
   const aviso = formulario.querySelector(".mensaje-ok");
+  const textoOk = aviso.textContent;
   formulario.addEventListener("submit", async (evento) => {
     evento.preventDefault();
     if (!formulario.reportValidity()) return;
@@ -26,6 +28,7 @@ function conectarFormulario(formulario, url) {
       const ok = await enviar(url, datos);
       if (!ok) throw new Error("Respuesta no válida");
       formulario.reset();
+      aviso.textContent = textoOk;
       aviso.classList.add("visible");
       aviso.focus();
     } catch (error) {
