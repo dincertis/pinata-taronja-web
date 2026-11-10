@@ -90,23 +90,24 @@
           </div>
         </div>
         <div class="circulos" aria-hidden="true">
-          <svg class="imagotipo" viewBox="0 0 375 395" focusable="false">
-            <defs>
-              <linearGradient id="pt-g-grande" gradientUnits="userSpaceOnUse" x1="35.56" y1="158.64" x2="278.44" y2="316.36">
-                <stop offset="0.015" stop-color="#E7206C"/><stop offset="0.075" stop-color="#E73B6D"/><stop offset="0.2" stop-color="#EB5D71"/><stop offset="0.325" stop-color="#EC7A72"/><stop offset="0.45" stop-color="#EF936F"/><stop offset="0.575" stop-color="#F2AA68"/><stop offset="0.7" stop-color="#F5BF5B"/><stop offset="0.825" stop-color="#F7D248"/><stop offset="0.925" stop-color="#F7E02F"/><stop offset="0.985" stop-color="#F7E81D"/>
-              </linearGradient>
-              <linearGradient id="pt-g-azul" gradientUnits="userSpaceOnUse" x1="171.17" y1="58.47" x2="343.43" y2="170.33">
-                <stop offset="0.015" stop-color="#224D9C"/><stop offset="0.15" stop-color="#2957A4"/><stop offset="0.3" stop-color="#2E64AD"/><stop offset="0.5" stop-color="#2C74B9"/><stop offset="0.7" stop-color="#3F86C6"/><stop offset="0.85" stop-color="#4693CF"/><stop offset="0.985" stop-color="#4B9FD8"/>
-              </linearGradient>
-              <!-- Máscara: el círculo negro (iris) crece desde el centro del círculo grande y "esconde" el azul detrás de él -->
-              <mask id="pt-mascara" maskUnits="userSpaceOnUse" x="-200" y="-200" width="800" height="900">
-                <rect x="-200" y="-200" width="800" height="900" fill="#fff"/>
-                <circle id="pt-iris" cx="157" cy="237.5" r="144.8" fill="#000" style="transform-box:fill-box;transform-origin:center;transform:scale(0)"/>
-              </mask>
-            </defs>
-            <circle id="pt-grande" cx="157" cy="237.5" r="144.8" fill="url(#pt-g-grande)"/>
-            <g mask="url(#pt-mascara)"><circle id="pt-azul" cx="257.3" cy="114.4" r="102.7" fill="url(#pt-g-azul)"/></g>
-          </svg>
+          <div class="imagotipo">
+            <svg class="pt-capa pt-grande" viewBox="0 0 375 395" focusable="false">
+              <defs>
+                <linearGradient id="pt-g-grande" gradientUnits="userSpaceOnUse" x1="35.56" y1="158.64" x2="278.44" y2="316.36">
+                  <stop offset="0.015" stop-color="#E7206C"/><stop offset="0.075" stop-color="#E73B6D"/><stop offset="0.2" stop-color="#EB5D71"/><stop offset="0.325" stop-color="#EC7A72"/><stop offset="0.45" stop-color="#EF936F"/><stop offset="0.575" stop-color="#F2AA68"/><stop offset="0.7" stop-color="#F5BF5B"/><stop offset="0.825" stop-color="#F7D248"/><stop offset="0.925" stop-color="#F7E02F"/><stop offset="0.985" stop-color="#F7E81D"/>
+                </linearGradient>
+              </defs>
+              <circle cx="157" cy="237.5" r="144.8" fill="url(#pt-g-grande)"/>
+            </svg>
+            <svg class="pt-capa pt-azul" viewBox="0 0 375 395" focusable="false">
+              <defs>
+                <linearGradient id="pt-g-azul" gradientUnits="userSpaceOnUse" x1="171.17" y1="58.47" x2="343.43" y2="170.33">
+                  <stop offset="0.015" stop-color="#224D9C"/><stop offset="0.15" stop-color="#2957A4"/><stop offset="0.3" stop-color="#2E64AD"/><stop offset="0.5" stop-color="#2C74B9"/><stop offset="0.7" stop-color="#3F86C6"/><stop offset="0.85" stop-color="#4693CF"/><stop offset="0.985" stop-color="#4B9FD8"/>
+                </linearGradient>
+              </defs>
+              <circle id="pt-azul" cx="257.3" cy="114.4" r="102.7" fill="url(#pt-g-azul)"/>
+            </svg>
+          </div>
         </div>
       </div>
     </section>

@@ -53,52 +53,63 @@ document.querySelectorAll("[data-pack]").forEach((enlace) => {
   });
 });
 
-// Imagotipo del hero (solo escritorio): al pasar el ratón, el círculo azul hace una órbita
-// elíptica sobre la diagonal que une los dos centros. Pasa por detrás del círculo grande
-// (una máscara lo esconde de forma gradual, sin saltos de capa) y vuelve por delante.
+// Imagotipo del hero (solo escritorio). Al pasar el ratón:
+// 1) el círculo azul (delante) sube en diagonal, alejándose del grande, hasta ser tangente;
+// 2) ahí pasa a ir detrás y cruza por detrás del círculo grande hasta salir por el otro lado, de nuevo tangente;
+// 3) ahí vuelve a ir delante y sube por la misma diagonal hasta su sitio, con un pequeño rebote final.
+// Las capas solo cambian cuando los círculos son tangentes (no se solapan), así que el cambio no se nota.
 (function animarImagotipo() {
   const zona = document.querySelector(".circulos");
   const azul = document.getElementById("pt-azul");
-  const iris = document.getElementById("pt-iris");
-  if (!zona || !azul || !iris || !azul.animate) return;
+  const capaAzul = document.querySelector(".pt-azul");
+  if (!zona || !azul || !capaAzul || !azul.animate) return;
 
-  const DURACION = 1800; // ms por vuelta completa
-  const ANCHO_ORBITA = 60; // semieje corto de la órbita (unidades del viewBox 375×395)
-  const grande = { x: 157, y: 237.5 }; // centro del círculo grande
-  const reposo = { x: 257.3, y: 114.4 }; // centro del azul en reposo
+  const PRINCIPAL = 1950; // ms del recorrido principal
+  const ASENTAMIENTO = 300; // ms del rebote final
+  const REBOTE = 12; // cuánto se pasa de su posición al final (unidades del viewBox 375×395)
+  const DURACION = PRINCIPAL + ASENTAMIENTO;
+
+  // Geometría medida sobre el logo original
+  const grande = { x: 157, y: 237.5, r: 144.8 };
+  const reposo = { x: 257.3, y: 114.4, r: 102.7 };
   const dx = reposo.x - grande.x, dy = reposo.y - grande.y;
-  const DIST = Math.hypot(dx, dy); // distancia entre centros
+  const DIST = Math.hypot(dx, dy); // distancia entre centros en reposo
   const ux = dx / DIST, uy = dy / DIST; // diagonal que une los centros
-  const vx = -uy, vy = ux; // perpendicular
-  const ALCANCE = 110; // hasta dónde llega el azul al otro lado del centro del círculo grande
-  const A = (DIST + ALCANCE) / 2; // semieje largo de la elipse (va de la posición de reposo al extremo opuesto)
+  const TANGENTE = grande.r + reposo.r + 0.5; // distancia entre centros cuando son tangentes
 
-  const PASOS = 72;
-  const orbita = [];
-  for (let i = 0; i <= PASOS; i++) {
-    const t = (i / PASOS) * Math.PI * 2;
-    const x = ux * A * (Math.cos(t) - 1) + vx * ANCHO_ORBITA * Math.sin(t);
-    const y = uy * A * (Math.cos(t) - 1) + vy * ANCHO_ORBITA * Math.sin(t);
-    orbita.push({ transform: `translate(${x.toFixed(2)}px, ${y.toFixed(2)}px)`, offset: i / PASOS });
-  }
-  // Primera mitad: el azul se esconde tras el grande; segunda mitad: vuelve a salir por delante.
-  const ocultar = [
-    { transform: "scale(0)", offset: 0, easing: "ease-out" },
-    { transform: "scale(1)", offset: 0.16 },
-    { transform: "scale(1)", offset: 0.5, easing: "ease-in" },
-    { transform: "scale(0)", offset: 0.66 },
-    { transform: "scale(0)", offset: 1 },
+  // Posición del azul = distancia de su centro al del grande, medida sobre la diagonal
+  const pos = (s) => `translate(${(ux * (s - DIST)).toFixed(2)}px, ${(uy * (s - DIST)).toFixed(2)}px)`;
+  const d1 = TANGENTE - DIST, d2 = 2 * TANGENTE, d3 = TANGENTE + DIST + REBOTE;
+  const k = PRINCIPAL / DURACION / (d1 + d2 + d3);
+  const T1 = d1 * k, T2 = (d1 + d2) * k, T3 = PRINCIPAL / DURACION;
+  const suave = "cubic-bezier(.45, 0, .55, 1)", final = "cubic-bezier(.35, 0, .25, 1)";
+  const recorrido = [
+    { transform: pos(DIST), offset: 0, easing: suave },
+    { transform: pos(TANGENTE), offset: T1, easing: suave }, // tangente arriba a la derecha: pasa detrás
+    { transform: pos(-TANGENTE), offset: T2, easing: suave }, // tangente abajo a la izquierda: vuelve delante
+    { transform: pos(DIST + REBOTE), offset: T3, easing: final },
+    { transform: pos(DIST), offset: 1 },
   ];
 
   const escritorio = matchMedia("(min-width: 981px) and (hover: hover) and (pointer: fine)");
   const sinMovimiento = matchMedia("(prefers-reduced-motion: reduce)");
-  let enCurso = false;
+  let animacion = null;
+
+  function ajustarCapa() {
+    if (!animacion) return;
+    const f = animacion.currentTime / DURACION;
+    capaAzul.classList.toggle("detras", f >= T1 && f < T2);
+    requestAnimationFrame(ajustarCapa);
+  }
+  function terminar() {
+    animacion = null;
+    capaAzul.classList.remove("detras");
+  }
+
   zona.addEventListener("mouseenter", () => {
-    if (enCurso || !escritorio.matches || sinMovimiento.matches) return;
-    enCurso = true;
-    const vuelta = azul.animate(orbita, { duration: DURACION, easing: "cubic-bezier(.4, 0, .6, 1)" });
-    iris.animate(ocultar, { duration: DURACION, easing: "linear" });
-    const terminar = () => { enCurso = false; };
-    vuelta.finished.then(terminar, terminar);
+    if (animacion || !escritorio.matches || sinMovimiento.matches) return;
+    animacion = azul.animate(recorrido, { duration: DURACION });
+    animacion.finished.then(terminar, terminar);
+    requestAnimationFrame(ajustarCapa);
   });
 })();
