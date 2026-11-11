@@ -386,3 +386,10 @@ h1, h2, h3, .hero h1, .seccion h2, .newsletter h2, .pack h3, .pack-precio { colo
 
 /* Campo trampa anti-spam: invisible para personas */
 .trampa{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* Botón de WhatsApp de la cabecera: verde con texto e icono blancos (contraste AA) */
+.boton-wa { display: inline-flex; align-items: center; gap: 8px; background: #12874a; color: #fff; font-weight: 700; font-size: .9375rem; padding: 10px 16px; border-radius: 999px; text-decoration: none; line-height: 1; }
+.boton-wa svg { width: 20px; height: 20px; }
+.boton-wa:hover { background: #0e6e3b; color: #fff; }
+.boton-wa:focus-visible { outline: 3px solid #111; outline-offset: 2px; }
+@media (max-width: 480px) { .boton-wa { padding: 9px 12px; } .cabecera-acciones { gap: 10px; } }
