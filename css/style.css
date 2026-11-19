@@ -393,3 +393,6 @@ h1, h2, h3, .hero h1, .seccion h2, .newsletter h2, .pack h3, .pack-precio { colo
 .boton-wa:hover { background: #0e6e3b; color: #fff; }
 .boton-wa:focus-visible { outline: 3px solid #111; outline-offset: 2px; }
 @media (max-width: 480px) { .boton-wa { padding: 9px 12px; } .cabecera-acciones { gap: 10px; } }
+
+/* Hero: pregunta de cierre */
+.hero-pregunta { font-weight: 700; font-size: 1.25rem; margin: 0 0 24px; }
