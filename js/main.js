@@ -171,3 +171,27 @@ document.querySelectorAll("[data-pack]").forEach((enlace) => {
     ultima.finished.then(terminar, terminar);
   });
 })();
+
+// Tarjetas (packs y proyectos): al entrar en pantalla se muestran escalonadas.
+// Las que entran a la vez (una fila) se retrasan 90 ms entre sí; el CSS hace el resto.
+(function revelarTarjetas() {
+  const tarjetas = document.querySelectorAll(".pack, .proyecto");
+  if (!tarjetas.length) return;
+  if (!("IntersectionObserver" in window)) {
+    tarjetas.forEach((t) => t.classList.add("visto"));
+    return;
+  }
+  const observador = new IntersectionObserver(
+    (entradas) => {
+      const visibles = entradas.filter((e) => e.isIntersecting);
+      visibles.sort((a, b) => (a.target.compareDocumentPosition(b.target) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
+      visibles.forEach((entrada, i) => {
+        entrada.target.style.setProperty("--retardo", `${i * 90}ms`);
+        entrada.target.classList.add("visto");
+        observador.unobserve(entrada.target);
+      });
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
+  );
+  tarjetas.forEach((t) => observador.observe(t));
+})();
