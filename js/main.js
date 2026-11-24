@@ -195,3 +195,20 @@ document.querySelectorAll("[data-pack]").forEach((enlace) => {
   );
   tarjetas.forEach((t) => observador.observe(t));
 })();
+
+// Menú móvil: el botón abre y cierra el panel; se cierra al elegir un enlace, con Escape o al tocar fuera.
+(function menuMovil() {
+  const boton = document.querySelector(".menu-boton");
+  const menu = document.getElementById("menu-principal");
+  if (!boton || !menu) return;
+  const abrir = (si) => {
+    menu.classList.toggle("abierto", si);
+    boton.setAttribute("aria-expanded", String(si));
+    boton.setAttribute("aria-label", si ? "Cerrar menú" : "Abrir menú");
+  };
+  boton.addEventListener("click", () => abrir(!menu.classList.contains("abierto")));
+  menu.addEventListener("click", (e) => { if (e.target.closest("a")) abrir(false); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") abrir(false); });
+  document.addEventListener("click", (e) => { if (!e.target.closest(".cabecera")) abrir(false); });
+  matchMedia("(min-width: 761px)").addEventListener("change", (e) => { if (e.matches) abrir(false); });
+})();
