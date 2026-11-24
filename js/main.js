@@ -201,7 +201,27 @@ document.querySelectorAll("[data-pack]").forEach((enlace) => {
   const boton = document.querySelector(".menu-boton");
   const menu = document.getElementById("menu-principal");
   if (!boton || !menu) return;
+  const servicios = menu.querySelector(".menu-servicios");
+  const movil = matchMedia("(max-width: 760px)");
+  const submenu = (si) => {
+    menu.classList.toggle("sub-abierto", si);
+    if (servicios && movil.matches) servicios.setAttribute("aria-expanded", String(si));
+  };
+  const sincronizar = () => {
+    if (!servicios) return;
+    if (movil.matches) servicios.setAttribute("aria-expanded", String(menu.classList.contains("sub-abierto")));
+    else { servicios.removeAttribute("aria-expanded"); menu.classList.remove("sub-abierto"); }
+  };
+  sincronizar();
+  movil.addEventListener("change", sincronizar);
+  if (servicios) servicios.addEventListener("click", (e) => {
+    if (!movil.matches) return; // en escritorio es un enlace normal
+    e.preventDefault();
+    e.stopPropagation();
+    submenu(!menu.classList.contains("sub-abierto"));
+  });
   const abrir = (si) => {
+    if (!si) submenu(false);
     menu.classList.toggle("abierto", si);
     boton.setAttribute("aria-expanded", String(si));
     boton.setAttribute("aria-label", si ? "Cerrar menú" : "Abrir menú");
