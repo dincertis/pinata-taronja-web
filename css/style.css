@@ -522,3 +522,5 @@ p, li { text-wrap: pretty; }
 @media (prefers-reduced-motion: reduce) {
   .menu, .menu-boton, .menu-boton span { transition: none; }
 }
+@media (max-width: 370px) { .logo img { height: 26px; } .cabecera-interior { gap: 8px; } }
+@media (max-width: 330px) { .icono-ig { display: none; } } /* el Instagram sigue en el pie */
