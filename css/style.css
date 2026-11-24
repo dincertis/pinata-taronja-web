@@ -524,3 +524,17 @@ p, li { text-wrap: pretty; }
 }
 @media (max-width: 370px) { .logo img { height: 26px; } .cabecera-interior { gap: 8px; } }
 @media (max-width: 330px) { .icono-ig { display: none; } } /* el Instagram sigue en el pie */
+
+/* Menú móvil: Servicios despliega su submenú (Webs, Marca, Publicidad, Contenidos); Proyectos y Contacto quedan sueltos */
+@keyframes sub-entra { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+@media (max-width: 760px) {
+  .menu .menu-sub { display: none; padding-left: 18px; font-weight: 500; font-size: 1rem; }
+  .menu.sub-abierto .menu-sub { display: block; animation: sub-entra .2s var(--ease-out) backwards; }
+  .menu .menu-servicios { display: flex; align-items: center; justify-content: space-between; }
+  .menu .menu-servicios::after {
+    content: ""; width: 8px; height: 8px; margin-right: 4px; border: solid currentColor; border-width: 0 2px 2px 0;
+    transform: rotate(45deg) translateY(-2px); transition: transform .2s var(--ease-out);
+  }
+  .menu.sub-abierto .menu-servicios::after { transform: rotate(225deg) translateY(-2px); }
+}
+@media (prefers-reduced-motion: reduce) { .menu.sub-abierto .menu-sub { animation: none; } .menu .menu-servicios::after { transition: none; } }
