@@ -396,3 +396,19 @@ h1, h2, h3, .hero h1, .seccion h2, .newsletter h2, .pack h3, .pack-precio { colo
 
 /* Hero: pregunta de cierre */
 .hero-pregunta { font-weight: 700; font-size: 1.25rem; margin: 0 0 24px; }
+
+/* Página de proyectos */
+.proyectos { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
+.proyecto { display: flex; flex-direction: column; }
+.proyecto-imagen { display: block; border: 1px solid var(--linea); border-radius: 16px; overflow: hidden; margin-bottom: 16px; }
+.proyecto-imagen img { display: block; width: 100%; height: auto; transition: transform .35s ease; }
+.proyecto-imagen:hover img { transform: scale(1.03); }
+.proyecto-tipo { font-size: .8125rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--rosa-fuerte); margin: 0 0 4px; }
+.proyecto h2 { font-size: 1.375rem; margin: 0 0 8px; }
+.proyecto p:not(.proyecto-tipo) { color: var(--texto-suave); margin: 0 0 12px; }
+.proyecto-enlace { margin-top: auto; font-weight: 700; color: var(--marino); text-decoration: none; }
+.proyecto-enlace:hover { text-decoration: underline; }
+.proyectos-cta { margin-top: clamp(40px, 6vw, 72px); text-align: center; }
+.proyectos-cta p { font-size: 1.25rem; font-weight: 700; margin: 0 0 16px; }
+@media (prefers-reduced-motion: reduce) { .proyecto-imagen img { transition: none; } }
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
