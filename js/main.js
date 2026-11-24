@@ -171,3 +171,44 @@ document.querySelectorAll("[data-pack]").forEach((enlace) => {
     ultima.finished.then(terminar, terminar);
   });
 })();
+
+// Tarjetas (packs y proyectos): al entrar en pantalla se muestran escalonadas.
+// Las que entran a la vez (una fila) se retrasan 90 ms entre sí; el CSS hace el resto.
+(function revelarTarjetas() {
+  const tarjetas = document.querySelectorAll(".pack, .proyecto");
+  if (!tarjetas.length) return;
+  if (!("IntersectionObserver" in window)) {
+    tarjetas.forEach((t) => t.classList.add("visto"));
+    return;
+  }
+  const observador = new IntersectionObserver(
+    (entradas) => {
+      const visibles = entradas.filter((e) => e.isIntersecting);
+      visibles.sort((a, b) => (a.target.compareDocumentPosition(b.target) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
+      visibles.forEach((entrada, i) => {
+        entrada.target.style.setProperty("--retardo", `${i * 90}ms`);
+        entrada.target.classList.add("visto");
+        observador.unobserve(entrada.target);
+      });
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
+  );
+  tarjetas.forEach((t) => observador.observe(t));
+})();
+
+// Menú móvil: el botón abre y cierra el panel; se cierra al elegir un enlace, con Escape o al tocar fuera.
+(function menuMovil() {
+  const boton = document.querySelector(".menu-boton");
+  const menu = document.getElementById("menu-principal");
+  if (!boton || !menu) return;
+  const abrir = (si) => {
+    menu.classList.toggle("abierto", si);
+    boton.setAttribute("aria-expanded", String(si));
+    boton.setAttribute("aria-label", si ? "Cerrar menú" : "Abrir menú");
+  };
+  boton.addEventListener("click", () => abrir(!menu.classList.contains("abierto")));
+  menu.addEventListener("click", (e) => { if (e.target.closest("a")) abrir(false); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") abrir(false); });
+  document.addEventListener("click", (e) => { if (!e.target.closest(".cabecera")) abrir(false); });
+  matchMedia("(min-width: 761px)").addEventListener("change", (e) => { if (e.matches) abrir(false); });
+})();

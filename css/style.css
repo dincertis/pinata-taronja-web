@@ -61,9 +61,9 @@ ul { padding: 0; list-style: none; }
   transition: background-color .2s, color .2s, border-color .2s, transform .2s;
 }
 .boton-rosa { background: var(--rosa-fuerte); color: #fff; }
-.boton-rosa:hover { background: #a81e4a; }
+@media (hover: hover) and (pointer: fine) { .boton-rosa:hover { background: #a81e4a; } }
 .boton-linea { border-color: var(--marino); color: var(--marino); background: transparent; }
-.boton-linea:hover { background: var(--marino); color: #fff; }
+@media (hover: hover) and (pointer: fine) { .boton-linea:hover { background: var(--marino); color: #fff; } }
 .boton-pequeno { padding: 10px 20px; font-size: .9375rem; }
 .boton-bloque { width: 100%; }
 
@@ -77,10 +77,10 @@ ul { padding: 0; list-style: none; }
 .logo img { height: 34px; width: auto; }
 .menu { display: flex; gap: 28px; margin-left: auto; }
 .menu a { text-decoration: none; font-weight: 600; font-size: .9375rem; color: var(--marino); padding: 6px 0; border-bottom: 2px solid transparent; }
-.menu a:hover { border-bottom-color: var(--rosa); }
+@media (hover: hover) and (pointer: fine) { .menu a:hover { border-bottom-color: var(--rosa); } }
 .cabecera-acciones { display: flex; align-items: center; gap: 16px; }
 .icono-ig { display: grid; place-items: center; width: 40px; height: 40px; color: var(--marino); border-radius: 50%; }
-.icono-ig:hover { color: var(--rosa); }
+@media (hover: hover) and (pointer: fine) { .icono-ig:hover { color: var(--rosa); } }
 .icono-ig svg { width: 22px; height: 22px; }
 
 /* ---------- Hero ---------- */
@@ -183,7 +183,7 @@ ul { padding: 0; list-style: none; }
 .pack-destacado .pack-nota { border-top-color: rgba(255, 255, 255, .5); }
 .pack-destacado .pack-lista li::before { background: var(--amarillo); }
 .pack-destacado .boton { background: #fff; color: var(--rosa-fuerte); }
-.pack-destacado .boton:hover { background: var(--marino); color: #fff; }
+@media (hover: hover) and (pointer: fine) { .pack-destacado .boton:hover { background: var(--marino); color: #fff; } }
 .pack .boton-linea { margin-top: auto; }
 .seccion-marino .pack:not(.pack-destacado) { border-color: transparent; }
 .nota-pie { margin-top: 28px; font-size: .9375rem; color: var(--texto-suave); }
@@ -240,7 +240,7 @@ ul { padding: 0; list-style: none; }
 .pie h2 { font-size: 1rem; font-weight: 700; margin-bottom: 14px; color: var(--amarillo); }
 .pie ul { display: grid; gap: 8px; }
 .pie a { text-decoration: none; color: rgba(255, 255, 255, .9); }
-.pie a:hover { color: #fff; text-decoration: underline; }
+@media (hover: hover) and (pointer: fine) { .pie a:hover { color: #fff; text-decoration: underline; } }
 .pie p { color: rgba(255, 255, 255, .8); margin-top: 16px; max-width: 24em; }
 .pie .pie-legal { max-width: none; margin-top: 40px; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, .22); font-size: .875rem; color: rgba(255, 255, 255, .7); }
 
@@ -282,13 +282,13 @@ ul { padding: 0; list-style: none; }
 }
 h1, h2, h3, .hero h1, .seccion h2, .newsletter h2, .pack h3, .pack-precio { color: #111; }
 .menu a, .icono-ig, .campo label, .lista-servicios li, .casilla a { color: #111; }
-.menu a:hover { border-bottom-color: var(--rosa); }
-.icono-ig:hover { color: var(--rosa); }
+@media (hover: hover) and (pointer: fine) { .menu a:hover { border-bottom-color: var(--rosa); } }
+@media (hover: hover) and (pointer: fine) { .icono-ig:hover { color: var(--rosa); } }
 
 .boton-linea { border-color: #111; color: #111; }
-.boton-linea:hover { background: #111; color: #fff; }
+@media (hover: hover) and (pointer: fine) { .boton-linea:hover { background: #111; color: #fff; } }
 .cabecera .boton-rosa { background: #111; }
-.cabecera .boton-rosa:hover { background: var(--rosa-fuerte); }
+@media (hover: hover) and (pointer: fine) { .cabecera .boton-rosa:hover { background: var(--rosa-fuerte); } }
 
 .etiqueta-cobro { border-color: #111; color: #111; }
 .lista-servicios li::before { width: 10px; height: 10px; background: #111; box-shadow: none; }
@@ -301,7 +301,7 @@ h1, h2, h3, .hero h1, .seccion h2, .newsletter h2, .pack h3, .pack-precio { colo
 .pack-destacado h3, .pack-destacado .pack-precio { color: #fff; }
 .pack-destacado .pack-lista li::before { background: var(--amarillo); }
 .pack-destacado .boton { background: #fff; color: var(--marino); }
-.pack-destacado .boton:hover { background: var(--rosa-fuerte); color: #fff; }
+@media (hover: hover) and (pointer: fine) { .pack-destacado .boton:hover { background: var(--rosa-fuerte); color: #fff; } }
 
 /* La sección de Redes y Ads pasa a fondo blanco */
 .seccion-marino { background: #fff; color: var(--texto); }
@@ -312,14 +312,14 @@ h1, h2, h3, .hero h1, .seccion h2, .newsletter h2, .pack h3, .pack-precio { colo
 
 .campo input, .campo select, .campo textarea, .fila-email input { border-color: rgba(0, 0, 0, .35); }
 .newsletter .boton-rosa { background: #111; }
-.newsletter .boton-rosa:hover { background: var(--rosa-fuerte); }
+@media (hover: hover) and (pointer: fine) { .newsletter .boton-rosa:hover { background: var(--rosa-fuerte); } }
 
 /* Pie claro */
 .pie { background: var(--fondo-cielo); color: #111; border-top: 1px solid var(--linea); }
 .pie .logo-pie { background: transparent; padding: 0; }
 .pie h2 { color: #111; }
 .pie a { color: #111; }
-.pie a:hover { color: var(--rosa-fuerte); }
+@media (hover: hover) and (pointer: fine) { .pie a:hover { color: var(--rosa-fuerte); } }
 .pie p { color: var(--texto-suave); }
 .pie .pie-legal { border-top-color: var(--linea); color: var(--texto-suave); }
 
@@ -344,8 +344,8 @@ h1, h2, h3, .hero h1, .seccion h2, .newsletter h2, .pack h3, .pack-precio { colo
 .pack-destacado.pack-azul .pack-nota, .pack-destacado.pack-rosa .pack-nota { border-top-color: rgba(255, 255, 255, .6); }
 .pack-destacado.pack-azul .boton { background: #fff; color: var(--marino); }
 .pack-destacado.pack-rosa .boton { background: #fff; color: var(--rosa-fuerte); }
-.pack-destacado.pack-azul .boton:hover { background: var(--marino); color: #fff; }
-.pack-destacado.pack-rosa .boton:hover { background: #111; color: #fff; }
+@media (hover: hover) and (pointer: fine) { .pack-destacado.pack-azul .boton:hover { background: var(--marino); color: #fff; } }
+@media (hover: hover) and (pointer: fine) { .pack-destacado.pack-rosa .boton:hover { background: #111; color: #fff; } }
 
 /* Fotos nuevas */
 .banda-foto img { height: clamp(200px, 30vw, 420px); object-position: center 62%; }
@@ -380,7 +380,7 @@ h1, h2, h3, .hero h1, .seccion h2, .newsletter h2, .pack h3, .pack-precio { colo
 .legal p, .legal ul { margin-top: 14px; }
 .legal ul { list-style: disc; padding-left: 1.4em; display: grid; gap: 8px; }
 .legal a { color: var(--marino); text-underline-offset: 3px; }
-.legal a:hover { color: var(--rosa-fuerte); }
+@media (hover: hover) and (pointer: fine) { .legal a:hover { color: var(--rosa-fuerte); } }
 .legal .pendiente { background: var(--amarillo); color: #111; padding: 0 4px; }
 .pie-enlaces { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 14px; font-size: .875rem; }
 
@@ -390,7 +390,7 @@ h1, h2, h3, .hero h1, .seccion h2, .newsletter h2, .pack h3, .pack-precio { colo
 /* Botón de WhatsApp de la cabecera: verde con texto e icono blancos (contraste AA) */
 .boton-wa { display: inline-flex; align-items: center; gap: 8px; background: #12874a; color: #fff; font-weight: 700; font-size: .9375rem; padding: 10px 16px; border-radius: 999px; text-decoration: none; line-height: 1; }
 .boton-wa svg { width: 20px; height: 20px; }
-.boton-wa:hover { background: #0e6e3b; color: #fff; }
+@media (hover: hover) and (pointer: fine) { .boton-wa:hover { background: #0e6e3b; color: #fff; } }
 .boton-wa:focus-visible { outline: 3px solid #111; outline-offset: 2px; }
 @media (max-width: 480px) { .boton-wa { padding: 9px 12px; } .cabecera-acciones { gap: 10px; } }
 
@@ -401,16 +401,126 @@ h1, h2, h3, .hero h1, .seccion h2, .newsletter h2, .pack h3, .pack-precio { colo
 .proyectos { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
 .proyecto { display: flex; flex-direction: column; }
 .proyecto-imagen { display: block; border: 1px solid var(--linea); border-radius: 16px; overflow: hidden; margin-bottom: 16px; }
-.proyecto-imagen img { display: block; width: 100%; height: auto; transition: transform .35s ease; }
-.proyecto-imagen:hover img { transform: scale(1.03); }
+.proyecto-imagen img { display: block; width: 100%; height: auto; }
+@media (hover: hover) and (pointer: fine) { .proyecto:hover .proyecto-imagen img { transform: scale(1.04); } }
 .proyecto-tipo { font-size: .8125rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--rosa-fuerte); margin: 0 0 4px; }
 .proyecto h2 { font-size: 1.375rem; margin: 0 0 8px; }
 .proyecto p:not(.proyecto-tipo) { color: var(--texto-suave); margin: 0 0 12px; }
 .proyecto-enlace { margin-top: auto; font-weight: 700; color: var(--marino); text-decoration: none; }
-.proyecto-enlace:hover { text-decoration: underline; }
+@media (hover: hover) and (pointer: fine) { .proyecto-enlace:hover { text-decoration: underline; } }
 .proyectos-cta { margin-top: clamp(40px, 6vw, 72px); text-align: center; }
 .proyectos-cta p { font-size: 1.25rem; font-weight: 700; margin: 0 0 16px; }
 @media (prefers-reduced-motion: reduce) { .proyecto-imagen img { transition: none; } }
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .logo { flex-shrink: 0; }
 .menu { gap: 22px; }
+
+/* =====================================================
+   Mejoras de diseño y móvil (nov 2026)
+   mobile-native · emil-design-eng · apple-design
+   ===================================================== */
+:root { --ease-out: cubic-bezier(0.23, 1, 0.32, 1); }
+
+/* Móvil: sin destello gris al tocar, sin retardo de toque, sin inflar el texto en horizontal */
+html { -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+a, button, label, select, summary, input[type="checkbox"] { touch-action: manipulation; }
+/* Los controles no seleccionan su texto al mantener pulsado (el contenido sí) */
+.boton, .boton-wa, .icono-ig, .menu a { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+/* iOS hace zoom si un campo tiene menos de 16 px: este es el suelo */
+.campo input, .campo select, .campo textarea, .fila-email input { font-size: max(16px, 1rem); }
+
+/* Botones: respuesta inmediata al pulsar, transiciones solo de lo que cambia */
+.boton, .boton-wa {
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease, transform 160ms var(--ease-out);
+}
+.boton:active, .boton-wa:active { transform: scale(.97); }
+.icono-ig { transition: color .2s ease, transform 160ms var(--ease-out); }
+.icono-ig:active { transform: scale(.92); }
+.menu a { transition: border-color .2s ease, color .2s ease; }
+
+/* Cabecera: material translúcido (el contenido pasa por debajo) */
+.cabecera {
+  background: rgba(255, 255, 255, .8);
+  -webkit-backdrop-filter: saturate(180%) blur(18px); backdrop-filter: saturate(180%) blur(18px);
+  border-bottom-color: rgba(0, 0, 0, .1);
+}
+@media (prefers-reduced-transparency: reduce) {
+  .cabecera { background: #fff; -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+
+/* Tipografía: el espaciado de letras depende del tamaño (más cerrado cuanto más grande), interlineado inverso */
+.hero h1 { letter-spacing: -0.032em; line-height: 1.03; }
+.seccion h2, .newsletter h2 { letter-spacing: -0.025em; }
+.pack h3, .proyecto h2 { letter-spacing: -0.012em; }
+.pack-precio { font-variant-numeric: lining-nums tabular-nums; }
+.hero-texto, .seccion-cabecera p { letter-spacing: -0.005em; }
+.pack-nota, .pack-precio small, .pie-legal, .legal-fecha, .etiqueta-cobro, .pie-enlaces, .nota-pie { letter-spacing: .01em; }
+p, li { text-wrap: pretty; }
+
+/* Tarjetas: entran al hacer scroll (suben 14 px y se funden en .5 s, escalonadas) */
+.js .pack, .js .proyecto {
+  opacity: 0; transform: translateY(14px);
+  transition: opacity .5s var(--ease-out) var(--retardo, 0s), transform .5s var(--ease-out) var(--retardo, 0s);
+}
+.js .pack.visto, .js .proyecto.visto { opacity: 1; transform: none; }
+/* La imagen empieza un 7 % más grande y se asienta (.9 s); el zoom al pasar el ratón es aparte */
+.proyecto-imagen img {
+  scale: 1;
+  transition: scale .9s var(--ease-out) var(--retardo, 0s), transform .35s var(--ease-out);
+}
+.js .proyecto:not(.visto) .proyecto-imagen img { scale: 1.07; }
+
+/* Entrada del hero (~2 s): primero el titular con desenfoque que se aclara, luego texto, pregunta y botones */
+@keyframes hero-titular { from { opacity: 0; filter: blur(14px); transform: translateY(10px); } to { opacity: 1; filter: blur(0); transform: none; } }
+@keyframes hero-sube { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.hero h1 { animation: hero-titular 1s var(--ease-out) .1s backwards; }
+.hero-texto { animation: hero-sube .7s var(--ease-out) .85s backwards; }
+.hero-pregunta { animation: hero-sube .7s var(--ease-out) 1.05s backwards; }
+.hero-botones { animation: hero-sube .7s var(--ease-out) 1.3s backwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero h1, .hero-texto, .hero-pregunta, .hero-botones { animation: none; }
+  .js .pack, .js .proyecto { transform: none; transition: opacity .25s ease; }
+  .js .proyecto:not(.visto) .proyecto-imagen img { scale: 1; }
+  .proyecto-imagen img, .boton, .boton-wa, .icono-ig { transition: none; }
+  .boton:active, .boton-wa:active, .icono-ig:active { transform: none; }
+}
+
+/* ---------- Menú móvil: botón con panel desplegable (por debajo de 760 px) ---------- */
+.menu-boton { display: none; }
+@media (max-width: 760px) {
+  .cabecera-interior { gap: 12px; }
+  .menu-boton {
+    display: grid; place-content: center; gap: 5px; width: 44px; height: 44px; padding: 0;
+    background: transparent; border: 0; border-radius: 50%; color: #111; cursor: pointer;
+    transition: transform 160ms var(--ease-out);
+  }
+  .menu-boton:active { transform: scale(.92); }
+  .menu-boton span { display: block; width: 22px; height: 2px; border-radius: 2px; background: currentColor; transition: transform .25s var(--ease-out), opacity .2s ease; }
+  .menu-boton[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .menu-boton[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .menu-boton[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .menu {
+    display: flex; flex-direction: column; gap: 0; margin: 0;
+    position: absolute; top: 100%; left: 0; right: 0; padding: 4px 24px 20px;
+    background: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, .1); box-shadow: 0 18px 30px -18px rgba(0, 0, 0, .25);
+    visibility: hidden; opacity: 0; transform: translateY(-8px); pointer-events: none;
+    transition: opacity .2s var(--ease-out), transform .2s var(--ease-out), visibility 0s linear .2s;
+  }
+  .menu.abierto { visibility: visible; opacity: 1; transform: none; pointer-events: auto; transition-delay: 0s; }
+  .menu a { padding: 15px 0; font-size: 1.0625rem; border-bottom: 1px solid rgba(0, 0, 0, .08); }
+  .menu a:last-child { border-bottom: 0; }
+}
+@media (max-width: 480px) {
+  .logo img { height: 30px; }
+  .boton-wa { padding: 0; width: 44px; height: 44px; justify-content: center; }
+  .boton-wa span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .cabecera-acciones { gap: 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .menu, .menu-boton, .menu-boton span { transition: none; }
+}
+@media (max-width: 370px) { .logo img { height: 26px; } .cabecera-interior { gap: 8px; } }
+@media (max-width: 330px) { .icono-ig { display: none; } } /* el Instagram sigue en el pie */
