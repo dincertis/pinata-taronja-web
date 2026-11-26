@@ -202,20 +202,11 @@ document.querySelectorAll("[data-pack]").forEach((enlace) => {
   const menu = document.getElementById("menu-principal");
   if (!boton || !menu) return;
   const servicios = menu.querySelector(".menu-servicios");
-  const movil = matchMedia("(max-width: 760px)");
   const submenu = (si) => {
     menu.classList.toggle("sub-abierto", si);
-    if (servicios && movil.matches) servicios.setAttribute("aria-expanded", String(si));
+    if (servicios) servicios.setAttribute("aria-expanded", String(si));
   };
-  const sincronizar = () => {
-    if (!servicios) return;
-    if (movil.matches) servicios.setAttribute("aria-expanded", String(menu.classList.contains("sub-abierto")));
-    else { servicios.removeAttribute("aria-expanded"); menu.classList.remove("sub-abierto"); }
-  };
-  sincronizar();
-  movil.addEventListener("change", sincronizar);
   if (servicios) servicios.addEventListener("click", (e) => {
-    if (!movil.matches) return; // en escritorio es un enlace normal
     e.preventDefault();
     e.stopPropagation();
     submenu(!menu.classList.contains("sub-abierto"));
@@ -228,7 +219,10 @@ document.querySelectorAll("[data-pack]").forEach((enlace) => {
   };
   boton.addEventListener("click", () => abrir(!menu.classList.contains("abierto")));
   menu.addEventListener("click", (e) => { if (e.target.closest("a")) abrir(false); });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") abrir(false); });
-  document.addEventListener("click", (e) => { if (!e.target.closest(".cabecera")) abrir(false); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") { abrir(false); submenu(false); } });
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".cabecera")) abrir(false);
+    else if (!e.target.closest(".menu-grupo")) submenu(false);
+  });
   matchMedia("(min-width: 761px)").addEventListener("change", (e) => { if (e.matches) abrir(false); });
 })();

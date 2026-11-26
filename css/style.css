@@ -525,16 +525,31 @@ p, li { text-wrap: pretty; }
 @media (max-width: 370px) { .logo img { height: 26px; } .cabecera-interior { gap: 8px; } }
 @media (max-width: 330px) { .icono-ig { display: none; } } /* el Instagram sigue en el pie */
 
-/* Menú móvil: Servicios despliega su submenú (Webs, Marca, Publicidad, Contenidos); Proyectos y Contacto quedan sueltos */
+/* Menú: Servicios despliega su submenú (Webs, Marca, Publicidad, Contenidos) al hacer clic, en escritorio y en móvil */
 @keyframes sub-entra { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
-@media (max-width: 760px) {
-  .menu .menu-sub { display: none; padding-left: 18px; font-weight: 500; font-size: 1rem; }
-  .menu.sub-abierto .menu-sub { display: block; animation: sub-entra .2s var(--ease-out) backwards; }
-  .menu .menu-servicios { display: flex; align-items: center; justify-content: space-between; }
-  .menu .menu-servicios::after {
-    content: ""; width: 8px; height: 8px; margin-right: 4px; border: solid currentColor; border-width: 0 2px 2px 0;
-    transform: rotate(45deg) translateY(-2px); transition: transform .2s var(--ease-out);
-  }
-  .menu.sub-abierto .menu-servicios::after { transform: rotate(225deg) translateY(-2px); }
+.menu-grupo { position: relative; }
+.menu .menu-servicios { display: inline-flex; align-items: center; gap: 8px; }
+.menu .menu-servicios::after {
+  content: ""; width: 7px; height: 7px; border: solid currentColor; border-width: 0 2px 2px 0;
+  transform: rotate(45deg) translateY(-2px); transition: transform .2s var(--ease-out);
 }
-@media (prefers-reduced-motion: reduce) { .menu.sub-abierto .menu-sub { animation: none; } .menu .menu-servicios::after { transition: none; } }
+.menu.sub-abierto .menu-servicios { border-bottom-color: var(--rosa); }
+.menu.sub-abierto .menu-servicios::after { transform: rotate(225deg) translateY(-2px); }
+.menu-submenu {
+  display: none; position: absolute; top: calc(100% + 16px); left: -18px; min-width: 210px; z-index: 60;
+  padding: 8px; background: #fff; border: 1px solid var(--linea); border-radius: 16px;
+  box-shadow: 0 18px 40px -16px rgba(0, 0, 0, .28);
+}
+.menu.sub-abierto .menu-submenu { display: block; animation: sub-entra .18s var(--ease-out) backwards; }
+.menu-submenu a { display: block; padding: 11px 14px; border-bottom: 0; border-radius: 10px; font-weight: 600; }
+@media (hover: hover) and (pointer: fine) { .menu-submenu a:hover { background: var(--fondo-cielo); } }
+@media (max-width: 760px) {
+  .menu-grupo { position: static; }
+  .menu .menu-servicios { display: flex; justify-content: space-between; }
+  .menu .menu-servicios::after { margin-right: 4px; }
+  .menu-submenu { position: static; min-width: 0; padding: 0; background: none; border: 0; border-radius: 0; box-shadow: none; }
+  .menu-submenu a { padding: 15px 0 15px 18px; border-bottom: 1px solid rgba(0, 0, 0, .08); border-radius: 0; font-weight: 500; font-size: 1rem; }
+  .menu a:last-child { border-bottom: 1px solid rgba(0, 0, 0, .08); }
+  .menu > a:last-child { border-bottom: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .menu.sub-abierto .menu-submenu { animation: none; } .menu .menu-servicios::after { transition: none; } }
