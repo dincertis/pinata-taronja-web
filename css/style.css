@@ -458,11 +458,11 @@ a, button, label, select, summary, input[type="checkbox"] { touch-action: manipu
 p, li { text-wrap: pretty; }
 
 /* Tarjetas: entran al hacer scroll (suben 14 px y se funden en .5 s, escalonadas) */
-.js .pack, .js .proyecto {
+.js .pack, .js .proyecto, .js .metodo li {
   opacity: 0; transform: translateY(14px);
   transition: opacity .5s var(--ease-out) var(--retardo, 0s), transform .5s var(--ease-out) var(--retardo, 0s);
 }
-.js .pack.visto, .js .proyecto.visto { opacity: 1; transform: none; }
+.js .pack.visto, .js .proyecto.visto, .js .metodo li.visto { opacity: 1; transform: none; }
 /* La imagen empieza un 7 % más grande y se asienta (.9 s); el zoom al pasar el ratón es aparte */
 .proyecto-imagen img {
   scale: 1;
@@ -553,3 +553,62 @@ p, li { text-wrap: pretty; }
   .menu > a:last-child { border-bottom: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .menu.sub-abierto .menu-submenu { animation: none; } .menu .menu-servicios::after { transition: none; } }
+
+
+/* =====================================================
+   Plan de marketing a medida (servicio principal) y packs en segundo plano
+   ===================================================== */
+.hero h1 { font-size: clamp(2.25rem, 4.6vw, 4rem); }
+
+.sobretitulo { margin: 0 0 14px; font-weight: 700; font-size: .875rem; letter-spacing: .08em; text-transform: uppercase; color: var(--rosa-fuerte); }
+.seccion-cabecera .sobretitulo { font-size: .875rem; color: var(--rosa-fuerte); }
+
+/* Método en 4 pasos: círculos de la marca unidos por una línea */
+.metodo { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.metodo li { position: relative; }
+.metodo li:not(:last-child)::before {
+  content: ""; position: absolute; top: 35px; left: 88px; right: -12px; height: 2px; background: var(--linea);
+}
+.metodo-circulo {
+  display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%;
+  background: var(--c); color: var(--t); font-weight: 800; font-size: 1.75rem; line-height: 1;
+  position: relative; z-index: 1;
+}
+.metodo h3 { margin-top: 20px; font-weight: 800; font-size: 1.25rem; line-height: 1.2; }
+.metodo p { margin-top: 8px; color: var(--texto-suave); }
+
+.ventajas { list-style: none; margin: clamp(36px, 5vw, 56px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px 40px; }
+.ventajas li { position: relative; padding-left: 28px; font-weight: 600; }
+.ventajas li::before { content: ""; position: absolute; left: 0; top: .5em; width: 12px; height: 12px; border-radius: 50%; background: var(--rosa); }
+.ventajas li:nth-child(2)::before { background: var(--coral); }
+.ventajas li:nth-child(3)::before { background: var(--amarillo); box-shadow: inset 0 0 0 1.5px rgba(0, 0, 0, .25); }
+.ventajas li:nth-child(4)::before { background: var(--marino); }
+
+.a-medida-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; margin-top: clamp(32px, 4vw, 48px); }
+.a-medida-cta p { margin: 0; color: var(--texto-suave); font-weight: 600; }
+
+/* Packs: bloque secundario, más ligero que la sección principal */
+.bloque-packs { background: var(--fondo-cielo); border-top: 1px solid var(--linea); }
+.bloque-packs .seccion { background: transparent; color: var(--texto); padding-block: clamp(36px, 5vw, 64px); }
+.bloque-packs .seccion + .seccion { border-top: 1px solid var(--linea); }
+.bloque-packs .seccion-cabecera { margin-bottom: clamp(24px, 3.5vw, 36px); }
+.bloque-packs .seccion h2 { font-size: clamp(1.375rem, 2.4vw, 1.875rem); }
+.bloque-packs #servicios h2 { font-size: clamp(1.5rem, 2.8vw, 2.125rem); }
+.bloque-packs .seccion-cabecera p { font-size: 1rem; }
+.bloque-packs .pack { background: #fff; }
+.bloque-packs .pack-destacado { background: var(--marino); }
+
+@media (max-width: 960px) {
+  .metodo { grid-template-columns: 1fr 1fr; row-gap: 40px; }
+  .metodo li::before { display: none; }
+}
+@media (max-width: 760px) {
+  .metodo { grid-template-columns: 1fr; row-gap: 28px; }
+  .metodo li { display: grid; grid-template-columns: 64px 1fr; column-gap: 18px; align-items: start; }
+  .metodo-circulo { grid-row: 1 / span 2; width: 64px; height: 64px; font-size: 1.5rem; }
+  .metodo h3 { margin-top: 0; align-self: end; }
+  .metodo p { margin-top: 4px; }
+  .metodo li:not(:last-child)::before { display: block; top: 70px; bottom: -22px; left: 31px; right: auto; width: 2px; height: auto; }
+  .ventajas { grid-template-columns: 1fr; }
+  .a-medida-cta .boton { width: 100%; justify-content: center; text-align: center; }
+}

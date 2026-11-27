@@ -172,10 +172,10 @@ document.querySelectorAll("[data-pack]").forEach((enlace) => {
   });
 })();
 
-// Tarjetas (packs y proyectos): al entrar en pantalla se muestran escalonadas.
+// Tarjetas (packs, proyectos y pasos del método): al entrar en pantalla se muestran escalonadas.
 // Las que entran a la vez (una fila) se retrasan 90 ms entre sí; el CSS hace el resto.
 (function revelarTarjetas() {
-  const tarjetas = document.querySelectorAll(".pack, .proyecto");
+  const tarjetas = document.querySelectorAll(".pack, .proyecto, .metodo li");
   if (!tarjetas.length) return;
   if (!("IntersectionObserver" in window)) {
     tarjetas.forEach((t) => t.classList.add("visto"));
